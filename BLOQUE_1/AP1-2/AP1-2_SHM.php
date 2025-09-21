@@ -25,7 +25,8 @@ echo "<br>";
 echo "<br>";
 
 foreach ($arrayDeDatos as $key => $value) {
-    if(is_string($value)){
+    /*NO ME FUNCIONA
+     * if(is_string($value)){
         echo "La clave " .$key ." es de tipo string";
         echo "<br>";
         echo "<br>";
@@ -37,8 +38,29 @@ foreach ($arrayDeDatos as $key => $value) {
         echo "La clave " .$key ." es null";
         echo "<br>";
         echo "<br>";
+    }*/
+    if($value === "null"){
+        echo "El valor " . $key . " es null--> " .$value;
+        echo "<br>";
+        echo "<br>";
+    }else if(is_numeric($value)){
+        echo "El valor " . $key . " es un NUMERIC--> " .$value;
+        echo "<br>";
+        echo "<br>";
+    }else if(is_string($value)){
+        echo "El valor " . $key . " es un STRING--> " .$value;
+        echo "<br>";
+        echo "<br>";
     }
 };
 
-//http://localhost:8001/BLOQUE_1/AP1-2/AP1-2_SHM.php?hola=mundo&clave=2&clave2=valor3&dato=null
+/**CONSIDERACIONES
+ * No me terminaba de salir el ejercicio, porque todos los valores introducidos en la URL son considerados como STRING,
+ * por tanto, lo que se debe de hacer es especificar mucho, ya que por ejemplo "2" es de dos tipos.
+ *
+ * También tener en cuenta el orden de las condiciones... ya que si ponemos primero la condición de "is_string" al ser
+ * todos strings, directamente no pasa de ahí, por eso está el null el primero.
+ *
+ */
+
 ?>
