@@ -20,44 +20,40 @@
 $arrayDeDatos = [1=>"primero", 3=>"segundo", 5=>"tercero", 7=>"cuarto", 9=>"quinto", 11=>"sexto"];
 (int)$resultado=0;
 
+//Variable creada e incializada para distinguir la posición del array, es decir, un contador
+$posicionArray =1;
+
 foreach ($arrayDeDatos as $key => $value) {
-  if($key%2!=0){
+  if($posicionArray%2!=0){
       echo "Estas en una posición impar" ."<br>";
-      echo $value;
-      echo "<br>";
       (boolean)$impar=true;
       (boolean)$par=false;
-      $resultado+=$key;
-      echo $resultado;
-      echo "<br>";
-      if($resultado>5){
-          echo "El valor de la suma es mayor que 5 "."<br>";
-          echo "<br>";
-      }else if($resultado>10) {
-          echo "El valor de la suma es mayor que 10"."<br>";
-          echo "<br>";
-      }else if($resultado>20) {
-          echo "El valor de la suma es mayor que 20"."<br>";
-          echo "<br>";
-      }
   }else{
-      echo "Estas en una posición par";
+      echo "Estas en una posición par" ."<br>";
       (boolean)$impar=false;
       (boolean)$par=true;
-      $resultado+=$key;
-      echo "<br>";
-      echo "<br>";
-      if($resultado>5){
-          echo "El valor de la suma es mayor que 5 "."<br>";
-          echo "<br>";
-      }else if($resultado>10) {
-          echo "El valor de la suma es mayor que 10"."<br>";
-          echo "<br>";
-      }else if($resultado>20) {
-          echo "El valor de la suma es mayor que 20"."<br>";
-          echo "<br>";
-      }
   }
+
+  //Sumar las claves
+    $resultado+=$key;
+  echo "Suma de claves: " .$resultado ."<br>";
+  echo "POSICIÓN ARRAY: " .$posicionArray ."<br>";//De control
+
+
+  //EVALUACIÓN DE RESULTADO
+    if($resultado>20){
+        echo "El valor de la suma es mayor que 20 "."<br>";
+        echo "<br>";
+    }else if($resultado>10) {
+        echo "El valor de la suma es mayor que 10"."<br>";
+        echo "<br>";
+    }else if($resultado>5) {
+        echo "El valor de la suma es mayor que 5"."<br>";
+        echo "<br>";
+    }
+
+    //Incrementar la posición en cada iteración del foreach
+    $posicionArray++;
 
 };
 
