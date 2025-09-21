@@ -42,8 +42,8 @@ foreach ($arrayDeDatos as $key => $value) {
       }
   }else{
       echo "Estas en una posición par";
-      (boolean)$impar=true;
-      (boolean)$par=false;
+      (boolean)$impar=false;
+      (boolean)$par=true;
       $resultado+=$key;
       echo "<br>";
       echo "<br>";
