@@ -35,6 +35,16 @@ $arrayDeDatos =['hola'=>$variable1, 'clave'=>$variable2,'clave2'=>$variable3];
  */
 
 
+/*AÑADIDO TRAS VER LA SOLUCIÓN*/
+/*// la función "isset" permite verificar que una variable está definida Y no es NULL.
+if(isset($_REQUEST)) {
+    //En este caso no es necesario crear
+    $datos = $_REQUEST;
+}
+
+//Para comprobar los datos recibidos
+var_dump($datos);
+*/
 
 //Recorremos el array para mostrar los datos separados por lineas.
 foreach ($arrayDeDatos as $key => $value) {
@@ -42,7 +52,16 @@ foreach ($arrayDeDatos as $key => $value) {
   echo "<br>";
 };
 
-
+/*COMENTARIO TRAS VER SOLUCIÓN
+ * Con el $_GET directamente ya recoge clave y valor, con lo que se podría hacer "$arrayDeDatos=$_GET"
+ *
+ * $arrayDeDatos2 = array();
+ * $arrayDeDatos2 = $_GET;//Sale un error, pero no es una error es una advertencia de que es ineficiente
+ * foreach ($arrayDeDatos2 as $key => $value) {
+    echo "Se ha recibido " .$value ." para la clave " .$key ."<br>";
+    echo "<br>";
+    };
+ * */
 
 
 ?>
