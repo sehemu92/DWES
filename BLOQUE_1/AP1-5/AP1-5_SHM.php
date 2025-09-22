@@ -31,7 +31,7 @@
 $server="mariadb-server";//Se debe de indicar server y el nombre del contenedor al ejecutarse dentro de este la BD
 $username="root";
 $password="root";
-$db="AP01";
+$db="AP1";
 
 //Creamos la conexión
 $conexion=new mysqli($server, $username, $password, $db);
@@ -41,10 +41,26 @@ if($conexion->connect_error){
     die("Error de conexion: ".$conexion->connect_errno." --> ".$conexion->connect_error);//Hace que aquí se detenga la ejecución
     //connect_errno ----> Muestra el error de forma numérica
     //connect_error ----> Muesrta el error en forma escrita al que se asocia ese error numérico
-
-
 }
-echo "conexion exitosa";
+echo "conexion exitosa" ."<br>";
+echo "<br>";
+
+//CONSULTA DE EXTRAER TODOS LOS DATOS DE UNA TABLA USUARIO
+$sql="SELECT * FROM usuarios";//Código para la consulta
+
+$result =$conexion->query($sql);//CONSULTA
+
+while($row = $result->fetch_assoc()){ //fetch_assoc() ----> Se utiliza para recorrer fila por fila toda la tabla
+    /*Comprobación
+     * echo "ID: " .$row['id'];
+    echo "<br>";
+    echo "Nombre: " .$row['nombre'];
+    echo "<br>";
+    echo "Estado: " .$row['estado'];
+    echo "<br>";*/
+    echo "El usuario " .$row['nombre'] ." posee la id: " .$row['id'] ." y su estado es: " .$row['estado'] ."<br>";
+};
+
 
 
 
