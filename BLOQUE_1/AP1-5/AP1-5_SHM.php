@@ -24,13 +24,14 @@
 //Definimos en forma de variables los datos de la conexión como el host* o server*, username, password y database
 //host --> Cuando el script se ejecuta en la máquina local | server --> Cuando el script se ejecuta dentro de un contenedor como en este caso el Docker.
 //Para nuestro ejemplo, estos datos los encontramos en el dockerfile, en el caso de la database será la base de datos que queramos acceder
-$host="localhost";
+
+$server="mariadb-server";//Se debe de indicar server y el nombre del contenedor al ejecutarse dentro de este la BD
 $username="root";
 $password="root";
 $database="AP1";
 
 //Creamos la conexión
-$conexion=new mysqli($host, $username, $password, $database);
+$conexion=new mysqli($server, $username, $password, $database);
 
 //Verificamos la conexión
 if($conexion->connect_error){
