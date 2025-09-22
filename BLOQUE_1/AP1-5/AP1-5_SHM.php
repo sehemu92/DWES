@@ -63,8 +63,8 @@ while($row = $result->fetch_assoc()){ //fetch_assoc() ----> Se utiliza para reco
 
 //AÑADIR REGISTRO A UNA TABLA
 //Datos a insertar
-$nombre="Pedro";
-$estado =3;
+$nombre="Manuel";
+$estado =4;
 
 //Creamos la consulta
 $sql="INSERT INTO usuarios (nombre, estado) VALUES ('$nombre', '$estado')";
@@ -77,11 +77,22 @@ if ($result){
     //Para extraer la ultima ID incluida:
     $nueva_id =$conexion->insert_id; //Esta es la ide del insert con "insert_id"
     echo "Registro insertado con éxito. El nuevo registro tiene la id: " .$nueva_id;
+    echo "<br>";
 }else{
     echo "error al insertar: " .$conexion->error;
 }
 
 //MODIFICAR ESTADO Y ACTUALIZAR REGISTRO
+//Realizamos la actualización
+$sql = "UPDATE usuarios SET estado=true WHERE id=".$nueva_id;
+try {
+    $conexion->query($sql);
+    echo "Se ha realizado correctamente la actualziación de la id:" . $nueva_id . "<br>";
+    echo "<br>";
+}catch (mysqli_sql_exception $e){
+    die ("Se ha producido el siguiente error:<br>".$e->getMessage().". En la línea:".$e->getLine()."<br>");
+    echo "<br>";
+}
 
 
 
