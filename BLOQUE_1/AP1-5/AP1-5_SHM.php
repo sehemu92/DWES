@@ -19,6 +19,9 @@
  * • Importante recordar cerrar la conexión.
  */
 
+
+/*Crear la BD lo primero y asegurarnos en PHPSTORM que está funcionando*/
+
 /*Crear la conexión a la BBDD*/
 
 //Definimos en forma de variables los datos de la conexión como el host* o server*, username, password y database
@@ -28,16 +31,18 @@
 $server="mariadb-server";//Se debe de indicar server y el nombre del contenedor al ejecutarse dentro de este la BD
 $username="root";
 $password="root";
-$database="AP1";
+$db="AP1";
 
 //Creamos la conexión
-$conexion=new mysqli($server, $username, $password, $database);
+$conexion=new mysqli($server, $username, $password, $db);
 
 //Verificamos la conexión
 if($conexion->connect_error){
-    die("Error de conexion: ".$conexion->connect_error);
+    die("Error de conexion: ".$conexion->connect_errno." --> ".$conexion->connect_error);
 }
 echo "conexion exitosa";
+
+
 
 
 
