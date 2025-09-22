@@ -61,7 +61,16 @@ while($row = $result->fetch_assoc()){ //fetch_assoc() ----> Se utiliza para reco
     echo "El usuario " .$row['nombre'] ." posee la id: " .$row['id'] ." y su estado es: " .$row['estado'] ."<br>";
 };
 
+//AÑADIR REGISTRO A UNA TABLA
+//Datos a insertar
+$nombre="Sergio";
+$estado =3;
 
+//Creamos la consulta
+$sql="INSERT INTO usuarios (nombre, estado) VALUES ($nombre, $estado)";
+
+//Ejecutamos la consulta
+$result =$conexion->query($sql);
 
 
 
