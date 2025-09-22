@@ -31,14 +31,18 @@
 $server="mariadb-server";//Se debe de indicar server y el nombre del contenedor al ejecutarse dentro de este la BD
 $username="root";
 $password="root";
-$db="AP1";
+$db="AP01";
 
 //Creamos la conexión
 $conexion=new mysqli($server, $username, $password, $db);
 
 //Verificamos la conexión
 if($conexion->connect_error){
-    die("Error de conexion: ".$conexion->connect_errno." --> ".$conexion->connect_error);
+    die("Error de conexion: ".$conexion->connect_errno." --> ".$conexion->connect_error);//Hace que aquí se detenga la ejecución
+    //connect_errno ----> Muestra el error de forma numérica
+    //connect_error ----> Muesrta el error en forma escrita al que se asocia ese error numérico
+
+
 }
 echo "conexion exitosa";
 
