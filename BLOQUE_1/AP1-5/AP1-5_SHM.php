@@ -63,7 +63,7 @@ while($row = $result->fetch_assoc()){ //fetch_assoc() ----> Se utiliza para reco
 
 //AÑADIR REGISTRO A UNA TABLA
 //Datos a insertar
-$nombre="Sergio";
+$nombre="Pedro";
 $estado =3;
 
 //Creamos la consulta
@@ -72,8 +72,22 @@ $sql="INSERT INTO usuarios (nombre, estado) VALUES ('$nombre', '$estado')";
 //Ejecutamos la consulta
 $result =$conexion->query($sql);
 
+//Comprobamos que se ha realizado
+if ($result){
+    //Para extraer la ultima ID incluida:
+    $nueva_id =$conexion->insert_id; //Esta es la ide del insert con "insert_id"
+    echo "Registro insertado con éxito. El nuevo registro tiene la id: " .$nueva_id;
+}else{
+    echo "error al insertar: " .$conexion->error;
+}
+
+//MODIFICAR ESTADO Y ACTUALIZAR REGISTRO
 
 
 
+
+
+//Importante acordarse de cerrar la conexión para evitar consumir recursos
+$conexion->close();
 
 ?>
