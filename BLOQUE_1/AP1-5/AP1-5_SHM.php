@@ -67,7 +67,7 @@ $nombre="Sergio";
 $estado =3;
 
 //Creamos la consulta
-$sql="INSERT INTO usuarios (nombre, estado) VALUES ($nombre, $estado)";
+$sql="INSERT INTO usuarios (nombre, estado) VALUES ('$nombre', '$estado')";
 
 //Ejecutamos la consulta
 $result =$conexion->query($sql);
