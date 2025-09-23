@@ -63,7 +63,7 @@ while($row = $result->fetch_assoc()){ //fetch_assoc() ----> Se utiliza para reco
 
 //AÑADIR REGISTRO A UNA TABLA
 //Datos a insertar
-/*$nombre="Margarita";
+$nombre="Margarita";
 $estado =4;
 
 //Creamos la consulta
@@ -92,14 +92,14 @@ try {
 }catch (mysqli_sql_exception $e){
     die ("Se ha producido el siguiente error:<br>".$e->getMessage().". En la línea:".$e->getLine()."<br>");
     echo "<br>";
-}*/
+}
 
 //Definimos las sentencia en SQL como una cadena de caracteres.
 $sql = "SELECT * FROM usuarios";
 //Lanzamos la consulta a la BB.DD. y recogemos el resultado.
 $result = $conexion->query($sql);
 //Ahora procesamos el resultado
-if($result->num_rows >0){
+if($result->num_rows >0){ //Esta condición le está indicando si hay más de una row, mostrar el resultado sino pasa al else
     //Sabemos que hemos recibido al menos una columna, por lo tanto, recogemos los datos como un array asociativo
     //y lo recorremos con un bucle while
     while ($row = $result->fetch_assoc()){
