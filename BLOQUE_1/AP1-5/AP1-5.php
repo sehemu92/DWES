@@ -12,7 +12,7 @@ declare(strict_types=1);
 //Estos datos podemos extraerlos de la conexión predefinida con DOCKER
 //$server = "localhost";
 //$server= "0.0.0.0";
-$server = "172.24.0.2";
+$server = "mariadb-server";
 $username = "root";
 $password = "root";
 $db = "AP1";
@@ -42,7 +42,7 @@ if($result->num_rows >0){
     echo "0 resultados obtenidos";
 }
 //Realizamos una inserción
-$sql = "INSERT INTO usuarios (nombre, estado) VALUES('Raúl',false)";
+$sql = "INSERT INTO usuarios (nombre, estado) VALUES('ZEUS',false)";
 try {
     $conn->query($sql);
     $id = $conn->insert_id;

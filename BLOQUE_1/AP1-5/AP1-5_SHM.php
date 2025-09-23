@@ -72,7 +72,7 @@ while($row = $result->fetch_assoc()){ //fetch_assoc() ----> Se utiliza para reco
 
 //Creamos la consulta
 //$sql="INSERT INTO usuarios (nombre, estado) VALUES ('$nombre', '$estado')";//Inserción mediante variables
-$sql="INSERT INTO usuarios (nombre, estado) VALUES ('WINDOWS', false)";
+$sql="INSERT INTO usuarios (nombre, estado) VALUES ('ZEUS', false)";
 
 //Ejecutamos la consulta
 /**ORIGINARIAMENTE LO TENIA ASÍ, FUNCIONABA AUNQUE AL INCLUIR DOS VALORES IGUALES YA DABA ERROR
@@ -103,7 +103,7 @@ try{
 //MODIFICAR ESTADO Y ACTUALIZAR REGISTRO
 //Realizamos la actualización
 $sql = "UPDATE usuarios SET estado=true WHERE id=".$id;
-$sql2 = "UPDATE usuarios SET nombre='APPLE' WHERE id=".$id;
+$sql2 = "UPDATE usuarios SET nombre='GOKU' WHERE id=".$id;
 try {
     $conexion->query($sql);
     $conexion->query($sql2);
