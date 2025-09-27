@@ -46,10 +46,10 @@
 //Clase PADRE
 class VehiculoCarrera{
     //ATRIBUTOS
-    public $marca;
-    public $modelo;
-    public $velocidad;
-    public $combustible;
+    protected $marca;
+    protected $modelo;
+    protected $velocidad;
+    protected $combustible;
 
   //CONSTRUCTOR
     public function __construct($marca, $modelo, $velocidad, $combustible){
