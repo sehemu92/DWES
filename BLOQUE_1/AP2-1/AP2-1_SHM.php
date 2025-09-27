@@ -109,9 +109,11 @@ class cocheF1 extends VehiculoCarrera{
 
     public function activarDRS(){
         $this->alerones=true; //DRS activado
-        public $incrementoVelocidad=50;
+        $incrementoVelocidad=50; //Declaración de variable local
         $this->velocidad+$incrementoVelocidad;
+        echo "DRS activado";
     }
+
 }
 
 
