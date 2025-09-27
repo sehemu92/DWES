@@ -70,28 +70,45 @@ class VehiculoCarrera{
         /*DE CONTROL
         echo "Función consumirCombustible" . "<br>";
         */
-        $this->combustible-=5; //Resta 1 ud al combustible inicializado con el constructor
+        $this->combustible-=5; //Resta 5 ud al combustible inicializado con el constructor
     }
     public function arrancar(){
         /*DE CONTROL
         echo "Función arrancar" . "<br>";
         */
+
         $this->consumirCombustible();
         echo "El coche " .$this->marca ." " .$this->modelo ." ha arrancado y ha consumido gasolina, actualmente le quedan :" .$this->combustible ."litros" ."<br>";
+
+
     }
     public function acelerar(){
         /*DE CONTROL
         echo "Función acelerar" . "<br>";
         */
+        /*//Soluciones propia e inicial
         echo "El coche " .$this->marca ." " .$this->modelo ." ha acelerado su marcha" ."<br>";
-        $this->combustible-=25; //Si acelera consume más fuel
+        $this->combustible-=25; //Si acelera consume más fuel*/
+        //SOLUCION COPIADA PROFE
+        if ($this->combustible > 0) {
+            $this->velocidad += 10;
+            $this->consumirCombustible();
+            echo "$this->marca $this->modelo está acelerando. Velocidad actual: $this->velocidad km/h.<br>";
+        } else {
+            echo "$this->marca $this->modelo no puede acelerar, no tiene combustible.<br>";
+        }
     }
     public function detener (){
         /*DE CONTROL
         echo "Función detener" . "<br>";
         */
+        /*//Solucion propia
         echo "El coche " .$this->marca ." " .$this->modelo ." ha detenido su marcha para una parada en boxes" ."<br>";
-        $this->combustible-=0; //Si acelera consume más fuel
+        $this->combustible-=0; //Si acelera consume más fuel*/
+
+        //SOLUCION PROFE
+        $this->velocidad = 0;
+        echo "$this->marca $this->modelo se ha detenido.<br>";
     }
     public function mostrarEstado(){
         /*DE CONTROL
@@ -106,7 +123,7 @@ class VehiculoCarrera{
 
 /*CLASE HIJA COCHE F1*/
 class cocheF1 extends VehiculoCarrera{
-    public $alerones;//DRS desactivado de forma predeterminada
+    private $alerones;//DRS desactivado de forma predeterminada, privado pero no se indica en el enunciado
 
     public function __construct($marca, $modelo, $velocidad, $combustible, $alerones){
         parent::__construct($marca, $modelo, $velocidad, $combustible); //Atributos hererados de la clase padre
@@ -114,10 +131,19 @@ class cocheF1 extends VehiculoCarrera{
     }
 
     public function activarDRS(){
+        /*//Solucion propia
         $this->alerones=true; //DRS activado
         $incrementoVelocidad=50; //Declaración de variable local
         $this->velocidad+=$incrementoVelocidad;//Tener cuidado porque si solo pongo "+" no asigna, únicamente hace la operación, más correcto usar "+="
-        echo "DRS activado y su velocidad ha aumentado a " .$this->velocidad ."km/h" ."<br>";
+        echo "DRS activado y su velocidad ha aumentado a " .$this->velocidad ."km/h" ."<br>";*/
+
+        if ($this->alerones) {
+            $this->velocidad += 20;
+            echo "$this->marca $this->modelo ha activado el DRS. Velocidad actual: $this->velocidad km/h.<br>";
+        } else {
+            echo "$this->marca $this->modelo no tiene alerones mejorados para activar el DRS.<br>";
+        }
+
     }
 
     public function detenerF1(){
@@ -131,7 +157,7 @@ class cocheF1 extends VehiculoCarrera{
 
 /*CLASE HIJA COCHE FORMULA E*/
 class cocheFormulaE extends VehiculoCarrera{
-    public $bateria;
+    private $bateria;//Cambiado a private pero no se indica enunciado
 
     public function __construct($marca, $modelo, $velocidad, $combustible, $bateria){
         parent::__construct($marca, $modelo, $velocidad, $combustible); //Atributos hererados de la clase padre, tener en cuenta que el FE no usa combustible
