@@ -91,7 +91,7 @@ class VehiculoCarrera{
         /*DE CONTROL
         echo "Función mostrarEstado" . "<br>";
         */
-        echo "El coche " .$this->marca ." " .$this->modelo ." tiene :" .$this->combustible ."litros de combustible y velocidad media de " .$this->velocidad ."<br>";
+        echo "El coche " .$this->marca ." " .$this->modelo ." tiene :" .$this->combustible ."litros de combustible y velocidad media de " .$this->velocidad ."km/h"."<br>";
 
     }
 };
@@ -111,7 +111,7 @@ class cocheF1 extends VehiculoCarrera{
         $this->alerones=true; //DRS activado
         $incrementoVelocidad=50; //Declaración de variable local
         $this->velocidad+=$incrementoVelocidad;//Tener cuidado porque si solo pongo "+" no asigna, únicamente hace la operación, más correcto usar "+="
-        echo "DRS activado"."<br>";
+        echo "DRS activado y su velocidad ha aumentado a " .$this->velocidad ."km/h" ."<br>";
     }
 
     public function detenerF1(){
@@ -123,22 +123,77 @@ class cocheF1 extends VehiculoCarrera{
 }
 
 
+/*CLASE HIJA COCHE FORMULA E*/
+class cocheFormulaE extends VehiculoCarrera{
+    public $bateria;
+
+    public function __construct($marca, $modelo, $velocidad, $combustible, $bateria){
+        parent::__construct($marca, $modelo, $velocidad, $combustible); //Atributos hererados de la clase padre, tener en cuenta que el FE no usa combustible
+        $this->bateria=$bateria;
+    }
+
+    public function recargar(){
+        $recarga=30;
+        $this->bateria+=$recarga;
+        echo "Recarga - Bateria al " .$this->bateria ."%" ."<br>";
+    }
+
+    //Reescribir algunos metodos porque están enfocados a combustible y no bateria
+    public function arrancar(){
+        $this->bateria-=10;
+        echo "El coche " .$this->marca ." " .$this->modelo ." ha arrancado y ha consumido bateria, actualmente le quedan :" .$this->bateria ."% de bateria" ."<br>";
+    }
+
+    public function acelerar(){
+        /*DE CONTROL
+        echo "Función acelerar" . "<br>";
+        */
+        echo "El coche " .$this->marca ." " .$this->modelo ." ha acelerado su marcha" ."<br>";
+        $this->bateria-=25; //Si acelera consume más fuel
+    }
+
+
+    //Reescribir metodo mostrarEstado() del Padre
+    public function mostrarEstado(){
+        echo "El coche " .$this->marca ." " .$this->modelo ." tiene :" .$this->bateria ."% de bateria y velocidad media de " .$this->velocidad ."km/h"."<br>";
+    }
+}
+
 
 //DE CONTROL CLASE PADRE
-$cochePrueba=new VehiculoCarrera('FERRARI', 'F430', '250KM/H', '100');
+$cochePrueba=new VehiculoCarrera('FERRARI', 'F430', '150', '100');
 $cochePrueba->arrancar();
 $cochePrueba->acelerar();
 $cochePrueba->detener();
 $cochePrueba->mostrarEstado();
 
+echo "<br>";
+echo "<br>";
+
 //DE CONTROL CLASE HIJA COCHEF1
-$mclarenF1=new cocheF1('MCLAREN', 'MCL14', '200KM/H', '75',false);
+$mclarenF1=new cocheF1('MCLAREN', 'MCL14', '200', '75',false);
 $mclarenF1->arrancar();
-$mclarenF1->acelerar();
 $mclarenF1->mostrarEstado();
+$mclarenF1->acelerar();
 $mclarenF1->activarDRS();
+$mclarenF1->mostrarEstado();
 $mclarenF1->detenerF1();
 $mclarenF1->mostrarEstado();
+
+echo "<br>";
+echo "<br>";
+
+//DE CONTROL CLASE HIJA COCHE FORMULA E
+$jaguarFE=new cocheFormulaE('Jaguar', 'Electric FE', 100, 0, 70);
+$jaguarFE->mostrarEstado();
+$jaguarFE->arrancar();
+$jaguarFE->acelerar();
+$jaguarFE->mostrarEstado();
+$jaguarFE->detener();
+$jaguarFE->recargar();
+$jaguarFE->mostrarEstado();
+
+
 
 
 
