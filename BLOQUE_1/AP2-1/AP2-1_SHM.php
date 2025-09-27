@@ -100,7 +100,7 @@ class VehiculoCarrera{
 
 /*CLASE HIJA COCHE F1*/
 class cocheF1 extends VehiculoCarrera{
-    public $alerones=false;//DRS desactivado de forma predeterminada
+    public $alerones;//DRS desactivado de forma predeterminada
 
     public function __construct($marca, $modelo, $velocidad, $combustible, $alerones){
         parent::__construct($marca, $modelo, $velocidad, $combustible); //Atributos hererados de la clase padre
@@ -110,10 +110,16 @@ class cocheF1 extends VehiculoCarrera{
     public function activarDRS(){
         $this->alerones=true; //DRS activado
         $incrementoVelocidad=50; //Declaración de variable local
-        $this->velocidad+$incrementoVelocidad;
-        echo "DRS activado";
+        $this->velocidad+=$incrementoVelocidad;//Tener cuidado porque si solo pongo "+" no asigna, únicamente hace la operación, más correcto usar "+="
+        echo "DRS activado"."<br>";
     }
 
+    public function detenerF1(){
+        $this->alerones=false;
+        echo"DRS desactivado"."<br>";
+        //Llamada a un metodo del padre
+        parent::detener();
+    }
 }
 
 
@@ -126,12 +132,12 @@ $cochePrueba->detener();
 $cochePrueba->mostrarEstado();
 
 //DE CONTROL CLASE HIJA COCHEF1
-$mclarenF1=new cocheF1('MCLAREN', 'MCL14', '300KM/H', '75');
+$mclarenF1=new cocheF1('MCLAREN', 'MCL14', '200KM/H', '75',false);
 $mclarenF1->arrancar();
 $mclarenF1->acelerar();
 $mclarenF1->mostrarEstado();
 $mclarenF1->activarDRS();
-$mclarenF1->detener();
+$mclarenF1->detenerF1();
 $mclarenF1->mostrarEstado();
 
 
