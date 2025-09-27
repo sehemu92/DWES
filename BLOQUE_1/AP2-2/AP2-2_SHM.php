@@ -4,37 +4,27 @@
 class VehiculoCarrera
 {
     // Atributos protegidos
-    protected $marca;
-    protected $velocidad;
-    protected $combustible;
-    protected $velocidadMaxima;
-    protected $distanciaRecorrida;
+    public $marca;
+    public $color;
+    public $velocidad;
+    public $velocidadMaxima;
+    public $distanciaRecorrida;
 
 
     // Constructor
-    public function __construct($marca, $modelo, $velocidad, $combustible, $velocidadMaxima, $distanciaRecorrida)
+    public function __construct($marca, $color)//Eliminamos todos salvo estos que son los que se utilizan
     {
         $this->marca = $marca;
-        $this->modelo = $modelo;
-        $this->velocidad = rand(250, 300);//USO DE RANDOM EN PHP---> Velocidad máxima aleatoria entre 250 y 300 km/h
-        $this->combustible = $combustible;
-        $this->velocidadMaxima=0; //Para que se inicialice a 0
+        $this->color = $color;
+        $this->velocidad = 0;//Para que se inicialice a 0
+        $this->velocidadMaxima=rand(250, 300);//USO DE RANDOM EN PHP---> Velocidad máxima aleatoria entre 250 y 300 km/h;
         $this->distanciaRecorrida=0; //Para que se inicialice a 0
-        echo "Vehículo $marca $modelo creado con éxito.<br>";
     }
-
-    // Destructor
-    public function __destruct()
-    {
-        echo "El coche $this->marca $this->modelo se ha retirado de la carrera.<br>";
-    }
-
-
 
     // Método para acelerar el coche
     public function acelerar($dado){
         $aceleracion=$this->velocidad+$dado;
-        if($aceleracion > 300){
+        if($aceleracion > $this->velocidadMaxima){
             $this->velocidad=300;
         }else{
             $this->velocidad=$aceleracion;
@@ -43,25 +33,22 @@ class VehiculoCarrera
     }
 
     //Método para avanzar
-    public function avanzar()
-    {
+    public function avanzar(){
         $distancia=$this->velocidad/60;
         $this->distanciaRecorrida+=$distancia;
         echo $this->nombre ."ha recorrido un total de " .$this->distanciaRecorrida ."metros\n";
     }
 }
 
-
-
-
-
 //Método para el dado de turnos
-    public function tirarDado(){
+function tirarDado(){
         $dado=rand(1,10);
         return $dado;
     }
 
-public function configurarCoches($numJugadores){
+
+    // Función para configurar los coches y jugadores
+function configurarCoches($numJugadores){
         $vehiculos = []; //Creamos un array vacio para guardar los objetos que serán los coches creados
 
         //Crear vehiculos
@@ -72,16 +59,20 @@ public function configurarCoches($numJugadores){
             $color = trim(fgets(STDIN));
 
             // Crear un coche para el jugador
-            $vehiculos[] = new Vehiculo($nombre, $color);
+            $vehiculos[] = new VehiculoCarrera($nombre, $color);
 
             echo "El coche {$nombre} tiene una velocidad máxima de {$vehiculos[$i - 1]->velocidadMaxima} km/h.\n";//Ponemos i-1 porque el for para la creación de jugadores empieza desde el 1
         }
 
         return $vehiculos;
-    }
+}
 
-    public function jugarCarrera($vehiculos){
+
+    //FUNCION PARA JUGAR
+    function jugarCarrera($vehiculos){
         $ganador=false;
+
+        echo "Va a empezar la carrera de F1!!!!!!!!!!\n";
 
         //Indicamos un while para que se ejecute mientras se cumpla que no hay ganador (false)
         while (!$ganador) {
@@ -117,7 +108,7 @@ do {
 } while ($numJugadores < 2 || $numJugadores > 6);
 
 // Configurar los jugadores
-$jugadores = configurarJugadores($numJugadores);
+$jugadores = configurarCoches($numJugadores);
 
 // Comenzar el juego
 jugarCarrera($jugadores);
