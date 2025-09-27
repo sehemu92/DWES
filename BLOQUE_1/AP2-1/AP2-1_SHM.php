@@ -60,25 +60,49 @@ class VehiculoCarrera{
     }
 
   //Métodos
-    protected function consumirCombustible($combustible){
-        $combustible=$combustible-1;
-        echo "Función consumirCombustible";
+    protected function consumirCombustible(){
+        /*DE CONTROL
+        echo "Función consumirCombustible" . "<br>";
+        */
+        $this->combustible-=5; //Resta 1 ud al combustible inicializado con el constructor
     }
     public function arrancar(){
-        echo "Función arrancar";
+        /*DE CONTROL
+        echo "Función arrancar" . "<br>";
+        */
+        $this->consumirCombustible();
+        echo "El coche " .$this->marca ." " .$this->modelo ." ha arrancado y ha consumido gasolina, actualmente le quedan :" .$this->combustible ."litros" ."<br>";
     }
     public function acelerar(){
-        echo "Función acelerar";
+        /*DE CONTROL
+        echo "Función acelerar" . "<br>";
+        */
+        echo "El coche " .$this->marca ." " .$this->modelo ." ha acelerado su marcha" ."<br>";
+        $this->combustible-=25; //Si acelera consume más fuel
     }
     public function detener (){
-        echo "Función detener";
+        /*DE CONTROL
+        echo "Función detener" . "<br>";
+        */
+        echo "El coche " .$this->marca ." " .$this->modelo ." ha detenido su marcha para una parada en boxes" ."<br>";
+        $this->combustible-=0; //Si acelera consume más fuel
     }
     public function mostrarEstado(){
-        echo "Función mostrarEstado";
+        /*DE CONTROL
+        echo "Función mostrarEstado" . "<br>";
+        */
+        echo "El coche " .$this->marca ." " .$this->modelo ." tiene :" .$this->combustible ."litros de combustible y velocidad media de " .$this->velocidad ."<br>";
+
     }
-
-
 };
+
+//DE CONTROL
+$cochePrueba=new VehiculoCarrera('FERRARI', 'F430', '250KM/H', '100');
+$cochePrueba->arrancar();
+$cochePrueba->acelerar();
+$cochePrueba->detener();
+$cochePrueba->mostrarEstado();
+
 
 
 
