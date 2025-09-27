@@ -96,12 +96,41 @@ class VehiculoCarrera{
     }
 };
 
-//DE CONTROL
+
+
+/*CLASE HIJA COCHE F1*/
+class cocheF1 extends VehiculoCarrera{
+    public $alerones=false;//DRS desactivado de forma predeterminada
+
+    public function __construct($marca, $modelo, $velocidad, $combustible, $alerones){
+        parent::__construct($marca, $modelo, $velocidad, $combustible); //Atributos hererados de la clase padre
+        $this->alerones=$alerones;
+    }
+
+    public function activarDRS(){
+        $this->alerones=true; //DRS activado
+        public $incrementoVelocidad=50;
+        $this->velocidad+$incrementoVelocidad;
+    }
+}
+
+
+
+//DE CONTROL CLASE PADRE
 $cochePrueba=new VehiculoCarrera('FERRARI', 'F430', '250KM/H', '100');
 $cochePrueba->arrancar();
 $cochePrueba->acelerar();
 $cochePrueba->detener();
 $cochePrueba->mostrarEstado();
+
+//DE CONTROL CLASE HIJA COCHEF1
+$mclarenF1=new cocheF1('MCLAREN', 'MCL14', '300KM/H', '75');
+$mclarenF1->arrancar();
+$mclarenF1->acelerar();
+$mclarenF1->mostrarEstado();
+$mclarenF1->activarDRS();
+$mclarenF1->detener();
+$mclarenF1->mostrarEstado();
 
 
 
