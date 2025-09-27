@@ -57,6 +57,12 @@ class VehiculoCarrera{
         $this->modelo=$modelo;
         $this->velocidad=$velocidad;
         $this->combustible=$combustible;
+        echo "Vehículo $marca $modelo creado con éxito.<br>";
+    }
+
+    //DESTRUCTOR
+    public function __destruct(){
+        echo "El coche $this->marca $this->modelo se ha retirado de la carrera.<br>";
     }
 
   //Métodos
