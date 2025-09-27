@@ -5,18 +5,21 @@ class VehiculoCarrera
 {
     // Atributos protegidos
     protected $marca;
-    protected $modelo;
     protected $velocidad;
     protected $combustible;
+    protected $velocidadMaxima;
+    protected $distanciaRecorrida;
 
 
     // Constructor
-    public function __construct($marca, $modelo, $velocidad, $combustible)
+    public function __construct($marca, $modelo, $velocidad, $combustible, $velocidadMaxima, $distanciaRecorrida)
     {
         $this->marca = $marca;
         $this->modelo = $modelo;
-        $this->velocidad = $velocidad;
+        $this->velocidad = rand(250, 300);//USO DE RANDOM EN PHP---> Velocidad máxima aleatoria entre 250 y 300 km/h
         $this->combustible = $combustible;
+        $this->velocidadMaxima=0; //Para que se inicialice a 0
+        $this->distanciaRecorrida=0; //Para que se inicialice a 0
         echo "Vehículo $marca $modelo creado con éxito.<br>";
     }
 
@@ -26,105 +29,99 @@ class VehiculoCarrera
         echo "El coche $this->marca $this->modelo se ha retirado de la carrera.<br>";
     }
 
-    // Método para arrancar el coche
-    public function arrancar()
-    {
-        echo "$this->marca $this->modelo está arrancando...<br>";
-    }
+
 
     // Método para acelerar el coche
-    public function acelerar()
+    public function acelerar($dado){
+        $aceleracion=$this->velocidad+$dado;
+        if($aceleracion > 300){
+            $this->velocidad=300;
+        }else{
+            $this->velocidad=$aceleracion;
+        }
+      echo "$this->marca $this->modelo está acelerando. Velocidad actual: $this->velocidad km/h.<br>";
+    }
+
+    //Método para avanzar
+    public function avanzar()
     {
-        if ($this->combustible > 0) {
-            $this->velocidad += 10;
-            $this->consumirCombustible();
-            echo "$this->marca $this->modelo está acelerando. Velocidad actual: $this->velocidad km/h.<br>";
-        } else {
-            echo "$this->marca $this->modelo no puede acelerar, no tiene combustible.<br>";
+        $distancia=$this->velocidad/60;
+        $this->distanciaRecorrida+=$distancia;
+        echo $this->nombre ."ha recorrido un total de " .$this->distanciaRecorrida ."metros\n";
+    }
+}
+
+
+
+
+
+//Método para el dado de turnos
+    public function tirarDado(){
+        $dado=rand(1,10);
+        return $dado;
+    }
+
+public function configurarCoches($numJugadores){
+        $vehiculos = []; //Creamos un array vacio para guardar los objetos que serán los coches creados
+
+        //Crear vehiculos
+        for ($i = 1; $i <= $numJugadores; $i++) {
+            echo "Jugador {$i}, ingresa el nombre de tu coche: ";
+            $nombre = trim(fgets(STDIN));//Introducir por teclado, "trim" para quitar espacios, "fgets" para capturar entrada y "STDIN" llama al teclado
+            echo "Jugador {$i}, ingresa el color de tu coche: ";
+            $color = trim(fgets(STDIN));
+
+            // Crear un coche para el jugador
+            $vehiculos[] = new Vehiculo($nombre, $color);
+
+            echo "El coche {$nombre} tiene una velocidad máxima de {$vehiculos[$i - 1]->velocidadMaxima} km/h.\n";//Ponemos i-1 porque el for para la creación de jugadores empieza desde el 1
+        }
+
+        return $vehiculos;
+    }
+
+    public function jugarCarrera($vehiculos){
+        $ganador=false;
+
+        //Indicamos un while para que se ejecute mientras se cumpla que no hay ganador (false)
+        while (!$ganador) {
+            foreach ($vehiculos as $vehiculo) {
+                echo "\n{$vehiculo->nombre}, es tu turno. Presiona Enter para tirar el dado.";
+                fgets(STDIN);
+
+                // Tirar dado y acelerar el coche
+                $dado = tirarDado();
+                echo "Has sacado un {$dado} en el dado.\n";
+                $vehiculo->acelerar($dado);
+
+                // Calcular la distancia recorrida
+                $vehiculo->avanzar();
+
+                // Verificar si el jugador ha ganado
+                if ($vehiculo->distanciaRecorrida >= 100) {
+                    echo "{$vehiculo->nombre} ha ganado la carrera con un total de {$vehiculo->distanciaRecorrida} metros recorridos.\n";
+                    $ganador = true;
+                    break;
+                }
+            }
+            echo "\n\n"; // Separación entre turnos
         }
     }
 
-    // Método para detener el coche
-    public function detener()
-    {
-        $this->velocidad = 0;
-        echo "$this->marca $this->modelo se ha detenido.<br>";
-    }
 
-    // Método para mostrar el estado del coche
-    public function mostrarEstado()
-    {
-        echo "Estado de $this->marca $this->modelo: Velocidad: $this->velocidad km/h, Combustible: $this->combustible litros.<br>";
-    }
 
-    // Método protegido para consumir combustible
-    protected function consumirCombustible()
-    {
-        $this->combustible -= 5;
-    }
-}
+// Solicitar el número de jugadores
+do {
+    echo "Ingrese el número de jugadores (entre 2 y 6): ";
+    $numJugadores = (int)trim(fgets(STDIN));
+} while ($numJugadores < 2 || $numJugadores > 6);
 
-// Clase hija CocheF1
-class CocheF1 extends VehiculoCarrera
-{
-    private $alerones;
+// Configurar los jugadores
+$jugadores = configurarJugadores($numJugadores);
 
-    // Constructor
-    public function __construct($marca, $modelo, $velocidad, $combustible, $alerones)
-    {
-        parent::__construct($marca, $modelo, $velocidad, $combustible);
-        $this->alerones = $alerones;
-    }
+// Comenzar el juego
+jugarCarrera($jugadores);
 
-    // Método para activar el DRS (Drag Reduction System)
-    public function activarDRS()
-    {
-        if ($this->alerones) {
-            $this->velocidad += 20;
-            echo "$this->marca $this->modelo ha activado el DRS. Velocidad actual: $this->velocidad km/h.<br>";
-        } else {
-            echo "$this->marca $this->modelo no tiene alerones mejorados para activar el DRS.<br>";
-        }
-    }
-}
-
-// Clase hija CocheElectricoF1
-class CocheElectricoF1 extends VehiculoCarrera
-{
-    private $bateria;
-
-    // Constructor
-    public function __construct($marca, $modelo, $velocidad, $combustible, $bateria)
-    {
-        parent::__construct($marca, $modelo, $velocidad, $combustible);
-        $this->bateria = $bateria;
-    }
-
-    // Método para recargar la batería
-    public function recargar()
-    {
-        $this->bateria += 10;
-        echo "$this->marca $this->modelo está recargando la batería. Nivel de batería actual: $this->bateria%<br>";
-    }
-}
-
-// --- Ejemplo de uso ---
-
-// Crear un coche de F1
-$cocheF1 = new CocheF1("Ferrari", "SF21", 300, 100, true);
-$cocheF1->arrancar();
-$cocheF1->acelerar();
-$cocheF1->activarDRS();
-$cocheF1->mostrarEstado();
-$cocheF1->detener();
-
-// Crear un coche eléctrico de F1
-$cocheElectricoF1 = new CocheElectricoF1("Mercedes", "EQ Silver Arrow 02", 250, 80, 90);
-$cocheElectricoF1->arrancar();
-$cocheElectricoF1->acelerar();
-$cocheElectricoF1->recargar();
-$cocheElectricoF1->mostrarEstado();
-$cocheElectricoF1->detener();
 
 
 ?>
