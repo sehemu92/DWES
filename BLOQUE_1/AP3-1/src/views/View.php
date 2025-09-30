@@ -15,22 +15,7 @@ if (!isset($datos)) {
     <?php foreach ($datos as $key => $value): ?>
         <li>
             <?php
-                echo "title: " .$datos[0];
-            ?>
-        </li>
-        <li>
-            <?php
-            echo "keyworks: " .$datos[1];
-            ?>
-        </li>
-        <li>
-            <?php
-            echo "description: " .$datos[2];
-            ?>
-        </li>
-        <li>
-            <?php
-            echo "content: " .$datos[3];
+                echo $key .": " .$value; //únicamente es necesario ponerlo así, poruqe el array es de tipo asociativo
             ?>
         </li>
     <?php endforeach; ?>

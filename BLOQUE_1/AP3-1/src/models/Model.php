@@ -21,7 +21,7 @@ class modelo{
     //Creación de getter y setter para poder acceder al array
     //En el getter ponemos que se retorne como tipo de dato un array
     public function getDatos():array{
-        return $this->datos();
+        return $this->datos;
     }
 
     public function setDatos(array $datos):void{
