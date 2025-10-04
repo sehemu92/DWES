@@ -1,11 +1,17 @@
 <?php
 
 //En el controller instanciamos el modelo
+namespace src\controllers;
+
+use src\models\modelo;
+
 require_once __DIR__ . '/../models/Model.php';
 
 
-class controlador{
-    public function mostrarInformacion(){
+class controlador
+{
+    public function mostrarInformacion()
+    {
         // Crear instancia del modelo AP3-1
         $modelo = new modelo();
 

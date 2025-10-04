@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#page {
+    height: 100dvh;
+    background-color: #e52330;
+    color: white;
+    font-weight: bold;
+}
+
+#content {
+    color: white;
+    font-style: italic;
+    font-size: 0.9em;
+    padding: 0.5em;
+    text-align: justify;
+}
+
+#cab img {
+    border: 1px solid blue;
+    margin: 0.5em;
+    box-shadow: 0.1em 0.1em 0.3em black;
+    width: 200px;
+}
+
+#title, #cab {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+#title h1 {
+    text-shadow: 0.1em 0.1em 0.3em black;
+}
